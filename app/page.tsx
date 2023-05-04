@@ -13,7 +13,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h1 className={`${kavivanar.className}`}>TODO for this webpage</h1>
       <ul className={`${inter.className} list-disc`}>
-        <li>OAuth (maybe via google?)</li>
+        <li>✅ OAuth (maybe via google?)</li>
         <li>Stripe payment</li>
         <li>
           <span>Database (maybe vercel database?)</span>
