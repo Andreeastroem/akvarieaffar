@@ -10,7 +10,5 @@ export function slugify(name: string) {
     .replaceAll(new RegExp(/èéêëēėę/g), "e")
     .replaceAll(new RegExp(/[^a-zA-Z-]/g), "");
 
-  console.log("name in slugify", name);
-  console.log("slug in slugify", slug);
   return slug;
 }

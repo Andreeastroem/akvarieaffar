@@ -11,8 +11,8 @@ export default async function CMSFetch<T>({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Exclude-Invalied": true,
-      Authorization: process.env.DATOCMS_KEY,
+      "X-Exclude-Invalid": "true",
+      Authorization: process.env.DATOCMS_KEY ?? "",
     },
     body: JSON.stringify({
       query,

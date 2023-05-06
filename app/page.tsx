@@ -17,6 +17,14 @@ export default function Home() {
           👉 Link to start of navigation
         </Link>
       </h2>
+      <h2>
+        <Link
+          href={"/om-affaren"}
+          className="text-blue-400 hover:text-blue-200"
+        >
+          👉 Om affären
+        </Link>
+      </h2>
       <h2 className={`${kavivanar.className}`}>TODO for this webpage</h2>
       <ul className={`${inter.className} list-disc`}>
         <li>✅ OAuth (maybe via google?)</li>

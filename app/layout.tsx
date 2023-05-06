@@ -16,6 +16,7 @@ export default function RootLayout({
     <html lang="sv">
       <ClerkProvider>
         <body className="max-w-7xl mx-auto dark-gradient text-gray-200 p-3 min-h-screen">
+          {/** @ts-expect-error Server Component */}
           <Header />
           {children}
         </body>

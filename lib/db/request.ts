@@ -11,8 +11,8 @@ export default async function DBFetch<T>({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      apiKey: process.env.SUPABASE_KEY,
-      Authorization: `Bearer ${process.env.SUPABASE_KEY}`,
+      apiKey: process.env.SUPABASE_KEY ?? "",
+      Authorization: `Bearer ${process.env.SUPABASE_KEY ?? ""}`,
     },
     body: JSON.stringify({
       query,
