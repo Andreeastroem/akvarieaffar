@@ -12,7 +12,6 @@ export default function FiskLandingPageLayout({
         .filter((p) => p.type === "year")[0].value,
     []
   );
-  console.log("year", year);
   return (
     <div className="flex flex-col gap-8 h-full">
       <header>

@@ -3,16 +3,16 @@ type Props = {
   variables?: Record<string, unknown>;
 };
 
-export default async function CMSFetch<T>({
+export default async function DBFetch<T>({
   query,
   variables,
 }: Props): Promise<T | null> {
-  const res = await fetch("https://graphql.datocms.com/", {
+  const res = await fetch(`${process.env.SUPABASE_URL}/graphql/v1`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Exclude-Invalied": true,
-      Authorization: process.env.DATOCMS_KEY,
+      apiKey: process.env.SUPABASE_KEY,
+      Authorization: `Bearer ${process.env.SUPABASE_KEY}`,
     },
     body: JSON.stringify({
       query,
@@ -22,7 +22,7 @@ export default async function CMSFetch<T>({
 
   if (!res.ok) {
     throw new Error(
-      `Network error when fetching datocms: ${res.status} - ${res.statusText}`
+      `Network error when fetching db ${res.status} - ${res.statusText}`
     );
     return null;
   }
