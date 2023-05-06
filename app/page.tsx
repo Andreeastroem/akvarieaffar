@@ -23,7 +23,14 @@ export default function Home() {
             <li>Product information (PIM?)</li>
           </ul>
         </li>
-        <li>CMS - what is needed?</li>
+        <li>
+          <span>CMS - what is needed?</span>
+          <ul>
+            <li>Advice pages</li>
+            <li>Information pages</li>
+            <li>✅ About page</li>
+          </ul>
+        </li>
       </ul>
     </main>
   );
