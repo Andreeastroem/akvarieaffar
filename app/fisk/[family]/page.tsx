@@ -52,7 +52,7 @@ export default async function FishFamilyLandingPage({
 
 function FishLink({ href, title }) {
   return (
-    <div className="border hover:m-3 hover:p-0 duration-1000 hover:rounded-3xl transition-all border-indigo-700 border-solid p-3">
+    <div className="border hover:m-3 hover:p-0 overflow-hidden duration-1000 hover:rounded-3xl transition-all border-indigo-700 border-solid p-3">
       <Link href={href} className="w-full flex justify-center">
         {/* <Image alt={title} width={200} height={200} /> */}
         <div className="w-52 h-52 rounded-3xl bg-blue-400 animate-pulse" />
