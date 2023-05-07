@@ -1,3 +1,4 @@
+import MobileMenu from "./MobileMenu";
 import Header from "./Header";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
@@ -19,6 +20,8 @@ export default function RootLayout({
           {/** @ts-expect-error Server Component */}
           <Header />
           {children}
+          {/** @ts-expect-error Server Component */}
+          <MobileMenu />
         </body>
       </ClerkProvider>
     </html>
