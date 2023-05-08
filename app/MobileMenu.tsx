@@ -19,7 +19,7 @@ function MenuButton({
   onClick,
   icon,
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   icon?: JSX.Element;
 }) {
   return (
