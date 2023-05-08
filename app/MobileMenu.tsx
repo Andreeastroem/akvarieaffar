@@ -3,7 +3,7 @@ import { Menu } from "@/icons";
 
 export default async function MobileMenu() {
   return (
-    <div className="grid grid-cols-3 md:hidden fixed bottom-0 left-0 right-0 p-4 bg-blue-950 rounded-t-3xl">
+    <div className="grid grid-cols-3 justify-center items-center md:hidden fixed bottom-0 left-0 right-0 p-4 bg-blue-950 rounded-t-3xl">
       <MenuButton />
       <MenuSearch />
       <MenuButton icon={<Menu />} />
@@ -12,7 +12,12 @@ export default async function MobileMenu() {
 }
 
 function MenuSearch() {
-  return <SearchIcon />;
+  return (
+    <div className="flex gap-1 group border-blue-600 p-2 rounded-2xl focus-within:rounded-none transition-all duration-1000 outline-none focus-within:border-blue-400 border-2">
+      <SearchIcon />
+      <input className="w-full bg-transparent" type="search" />
+    </div>
+  );
 }
 
 function MenuButton({
