@@ -27,6 +27,11 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@svgr/cli": "^7.0.0"
+    "@svgr/cli": "^7.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "next-transpile-modules": "^10.0.0"
   }
 }
