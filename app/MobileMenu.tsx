@@ -122,7 +122,7 @@ function MobileMenuOverlay({
   return (
     <div
       onClick={() => setOpen(false)}
-      className={`fixed transition-all duration-1000 bottom-0 left-0 right-0 bg-blue-800/75  overflow-y-scroll overflow-x-hidden grid gap-5 ${
+      className={`fixed transition-all duration-1000 bottom-0 left-0 right-0 bg-blue-500/75  overflow-y-scroll overflow-x-hidden grid gap-5 ${
         isOpen ? "top-0" : "top-full"
       }`}
     />
