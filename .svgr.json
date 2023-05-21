@@ -2,6 +2,7 @@
   "typescript": true,
   "outDir": "icons",
   "replaceAttrValues": {
-    "#000000": "currentColor"
+    "#000000": "currentColor",
+    "#000": "currentColor"
   }
 }

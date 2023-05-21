@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-import { Menu } from "@/icons"
+import { FishIcon, Menu } from "@/icons"
 import SearchIcon from "@/icons/Search"
 
 export default function MobileMenu() {
@@ -17,8 +17,8 @@ export default function MobileMenu() {
   }, [isOpen])
 
   return (
-    <div className="grid grid-cols-3 -mx-3 -mb-3 justify-center items-center md:hidden sticky bottom-0 left-0 right-0 p-4 bg-blue-950 rounded-t-3xl">
-      <MenuLink href="/fisk" />
+    <div className="grid grid-cols-3 -mx-3 -mb-3 justify-center items-center md:hidden sticky bottom-0 left-0 right-0 p-4 bg-blue-950">
+      <MenuLink href="/fisk" icon={<FishIcon width={40} height={40} color="text-white" />} />
       <MenuSearch />
       <MenuButton
         icon={<Menu />}
@@ -48,7 +48,7 @@ function MenuSearch() {
 function MenuLink({ href, icon }: { href: string; icon?: JSX.Element }) {
   return (
     <Link href={href} className="flex flex-col w-full items-center">
-      {icon ? icon : <div className="w-6 h-6 animate-pulse bg-blue-300" />}
+      {icon ? icon : <div className="w-10 h-10 animate-pulse bg-blue-300" />}
     </Link>
   )
 }
