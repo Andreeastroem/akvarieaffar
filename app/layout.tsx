@@ -8,6 +8,7 @@ import MobileMenu from "./MobileMenu"
 export const metadata = {
   title: "Bengts akvarieaffär",
   description: "Småskalig butik med gemytlig känsla",
+  robots: "noindex",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
