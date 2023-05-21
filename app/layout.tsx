@@ -19,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/** @ts-expect-error Server Component */}
           <Header />
           {children}
-          {/** @ts-expect-error Server Component */}
           <MobileMenu />
         </body>
       </ClerkProvider>
