@@ -1,15 +1,23 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Menu } from "@/icons"
 import SearchIcon from "@/icons/Search"
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "auto"
+    }
+  }, [isOpen])
+
   return (
-    <div className="grid grid-cols-3 justify-center items-center md:hidden fixed bottom-0 left-0 right-0 p-4 bg-blue-950 rounded-t-3xl">
+    <div className="grid grid-cols-3 -mx-3 -mb-3 justify-center items-center md:hidden sticky bottom-0 left-0 right-0 p-4 bg-blue-950 rounded-t-3xl">
       <MenuLink href="/fisk" />
       <MenuSearch />
       <MenuButton
