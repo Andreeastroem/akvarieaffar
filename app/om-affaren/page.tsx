@@ -1,33 +1,32 @@
-import { StructuredText, StructuredTextDocument } from "react-datocms";
+import { notFound } from "next/navigation"
+import { StructuredText, StructuredTextDocument } from "react-datocms"
 
-import { notFound } from "next/navigation";
+import CMSRequest from "../../lib/cms/request"
 
-import CMSRequest from "../../lib/cms/request";
-
-type AboutPage = {
+type TAboutPage = {
   historyPage: {
-    title: string;
+    title: string
     content: {
-      value: StructuredTextDocument;
-    };
+      value: StructuredTextDocument
+    }
     author: {
-      firstname: string;
-      lastname: string;
+      firstname: string
+      lastname: string
       image?: {
-        url: string;
-      };
-    };
-  };
-};
+        url: string
+      }
+    }
+  }
+}
 
 export default async function AboutPage() {
-  const data = await CMSRequest<AboutPage>({ query: CMS_QUERY });
+  const data = await CMSRequest<TAboutPage>({ query: CMS_QUERY })
 
   if (!data) {
-    return notFound();
+    return notFound()
   }
 
-  const { historyPage: page } = data;
+  const { historyPage: page } = data
 
   return (
     <div className="flex flex-col gap-5 pt-8">
@@ -39,7 +38,7 @@ export default async function AboutPage() {
         <span>{page.author.lastname}</span>
       </div>
     </div>
-  );
+  )
 }
 
 const CMS_QUERY = `
@@ -58,4 +57,4 @@ const CMS_QUERY = `
       }
     }
   }
-`;
+`

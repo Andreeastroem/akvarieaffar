@@ -1,11 +1,11 @@
-import { Inter, Kavivanar } from "next/font/google";
+import { Inter, Kavivanar } from "next/font/google"
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] })
 const kavivanar = Kavivanar({
   style: "normal",
   subsets: ["latin"],
   weight: "400",
-});
+})
 
 export default async function TodoPage() {
   return (
@@ -39,5 +39,5 @@ export default async function TodoPage() {
         </li>
       </ul>
     </div>
-  );
+  )
 }

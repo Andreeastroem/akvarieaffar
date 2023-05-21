@@ -1,18 +1,16 @@
-import MobileMenu from "./MobileMenu";
-import Header from "./Header";
-import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
+import "./globals.css"
+
+import { ClerkProvider } from "@clerk/nextjs/app-beta"
+
+import Header from "./Header"
+import MobileMenu from "./MobileMenu"
 
 export const metadata = {
   title: "Bengts akvarieaffär",
   description: "Småskalig butik med gemytlig känsla",
-};
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="sv">
       <ClerkProvider>
@@ -25,5 +23,5 @@ export default function RootLayout({
         </body>
       </ClerkProvider>
     </html>
-  );
+  )
 }

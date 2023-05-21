@@ -1,53 +1,51 @@
-import DBFetch from "@/lib/db/request";
-import { Fish } from "@/lib/db/types";
-import { slugify } from "@/lib/util/slugify";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import Link from "next/link"
+import { notFound } from "next/navigation"
+
+import DBFetch from "@/lib/db/request"
+import { Fish } from "@/lib/db/types"
+import { slugify } from "@/lib/util/slugify"
 
 type Props = {
   params: {
-    family: string;
-  };
-};
+    family: string
+  }
+}
 
 type QueryResponse = {
   fishCollection: {
-    edges: Array<{ node: Pick<Fish, "scientific_name" | "trade_name" | "id"> }>;
-  };
-};
+    edges: Array<{ node: Pick<Fish, "scientific_name" | "trade_name" | "id"> }>
+  }
+}
 
-export default async function FishFamilyLandingPage({
-  params: { family },
-}: Props) {
+export default async function FishFamilyLandingPage({ params: { family } }: Props) {
   const res = await DBFetch<QueryResponse>({
     query: FAMILY_PAGE_QUERY,
     variables: { family },
-  });
+  })
 
   if (!res) {
-    return notFound();
+    return notFound()
   }
 
-  const fishInFamily = res.fishCollection.edges.map((edge) => edge.node);
+  const fishInFamily = res.fishCollection.edges.map((edge) => edge.node)
 
   return (
     <div>
       <h2>{family}</h2>
       <div className="grid grid-cols-2 md:grid-cols-4">
         {fishInFamily.map((fish) => {
-          const slug = slugify(fish.scientific_name);
+          const slug = slugify(fish.scientific_name)
           return (
             <FishLink
               href={`/fisk/${family}/${slug}?id=${fish.id}`}
               title={fish.scientific_name}
               key={fish.scientific_name}
             />
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
 function FishLink({ href, title }: { href: string; title: string }) {
@@ -60,7 +58,7 @@ function FishLink({ href, title }: { href: string; title: string }) {
       <h3>{title}</h3>
       <span className="block w-14 h-4 bg-blue-400 animate-pulse" />
     </div>
-  );
+  )
 }
 
 const FAMILY_PAGE_QUERY = `
@@ -79,4 +77,4 @@ const FAMILY_PAGE_QUERY = `
       }
     }
   }
-`;
+`

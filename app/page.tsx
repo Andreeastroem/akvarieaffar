@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Link from "next/link"
 
 export default function Home() {
   return (
@@ -10,13 +9,10 @@ export default function Home() {
         </Link>
       </h2>
       <h2>
-        <Link
-          href={"/om-affaren"}
-          className="text-blue-400 hover:text-blue-200"
-        >
+        <Link href={"/om-affaren"} className="text-blue-400 hover:text-blue-200">
           👉 Om affären
         </Link>
       </h2>
     </main>
-  );
+  )
 }

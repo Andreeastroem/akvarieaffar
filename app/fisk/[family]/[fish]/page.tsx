@@ -1,45 +1,43 @@
-import DBFetch from "@/lib/db/request";
-import { Fish } from "@/lib/db/types";
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation"
+
+import DBFetch from "@/lib/db/request"
+import { Fish } from "@/lib/db/types"
 
 type Props = {
   params: {
-    family: string;
-    fish: string;
-  };
+    family: string
+    fish: string
+  }
   searchParams: {
-    id: number;
-  };
-};
+    id: number
+  }
+}
 
 type QueryResponse = {
   fishCollection: {
-    edges: Array<{ node: Fish }>;
-  };
-};
+    edges: Array<{ node: Fish }>
+  }
+}
 
-export default async function FishPage({
-  params: { family, fish },
-  searchParams: { id },
-}: Props) {
-  console.log("id", id);
+export default async function FishPage({ searchParams: { id } }: Props) {
+  console.log("id", id)
   const response = await DBFetch<QueryResponse>({
     query: FISH_PAGE_QUERY,
     variables: { id },
-  });
+  })
 
   if (!response) {
-    return notFound();
+    return notFound()
   }
 
-  const fishInformation = response.fishCollection.edges[0].node;
+  const fishInformation = response.fishCollection.edges[0].node
 
   return (
     <div>
       <h2>{fishInformation.trade_name}</h2>
       <h3>{fishInformation.scientific_name}</h3>
     </div>
-  );
+  )
 }
 
 const FISH_PAGE_QUERY = `
@@ -67,4 +65,4 @@ const FISH_PAGE_QUERY = `
       }
     }
   }
-`;
+`
