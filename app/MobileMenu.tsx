@@ -17,7 +17,9 @@ export default function MobileMenu() {
   }, [isOpen])
 
   return (
-    <div className="grid grid-cols-3 -mx-3 -mb-3 justify-center items-center md:hidden sticky bottom-0 left-0 right-0 p-4 bg-blue-950">
+    <div
+      className={`grid grid-cols-3 -mx-3 -mb-3 justify-center items-center md:hidden bottom-0 left-0 right-0 p-4 bg-blue-950 sticky`}
+    >
       <MenuLink href="/fisk" icon={<FishIcon width={40} height={40} color="text-white" />} />
       <MenuSearch />
       <MenuButton
@@ -86,8 +88,8 @@ function MobileMenuLayout({
         <MobileMenuCategory
           color="bg-blue-300"
           hoverColor="hover:bg-blue-300/75"
-          title="Fisk"
-          href="/fisk"
+          title="Artiklar"
+          href="/artiklar"
           onClick={closeMenu}
         />
         <MobileMenuCategory

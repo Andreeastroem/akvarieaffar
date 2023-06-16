@@ -1,12 +1,9 @@
 type Props = {
-  query: string;
-  variables?: Record<string, unknown>;
-};
+  query: string
+  variables?: Record<string, unknown>
+}
 
-export default async function CMSFetch<T>({
-  query,
-  variables,
-}: Props): Promise<T | null> {
+export default async function CMSFetch<T>({ query, variables }: Props): Promise<T | null> {
   const res = await fetch("https://graphql.datocms.com/", {
     method: "POST",
     headers: {
@@ -18,21 +15,18 @@ export default async function CMSFetch<T>({
       query,
       variables,
     }),
-  });
+  })
 
   if (!res.ok) {
-    throw new Error(
-      `Network error when fetching datocms: ${res.status} - ${res.statusText}`
-    );
-    return null;
+    throw new Error(`Network error when fetching datocms: ${res.status} - ${res.statusText}`)
   }
 
-  const json = await res.json();
+  const json = await res.json()
 
   if (json.errors) {
-    throw new Error(`Graphql error: ${json.errors}`);
-    return null;
+    console.error(JSON.stringify(json.errors, null, 2))
+    throw new Error(`Graphql error: ${json.errors}`)
   }
 
-  return json.data;
+  return json.data
 }
