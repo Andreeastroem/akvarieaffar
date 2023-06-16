@@ -13,7 +13,7 @@ export default async function TodoPage() {
       <h2 className={`${kavivanar.className}`}>TODO for this webpage</h2>
       <ul className={`${inter.className} list-disc`}>
         <li>✅ OAuth (maybe via google?)</li>
-        <li>Stripe payment</li>
+        <li>Stripe payment ?</li>
         <li>
           <span>🏗️Database (maybe vercel database?)</span>
           <ul className="list-decimal pl-4">
