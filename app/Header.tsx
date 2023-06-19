@@ -20,13 +20,14 @@ export default async function Header() {
         <UserButton userProfileUrl="/konto" />
       </div>
       <nav className="hidden md:block md:col-span-3">
-        <ul className="flex justify-center w-full max-w-3xl mx-auto">
+        <ul className="flex justify-center w-full max-w-3xl mx-auto tracking-widest">
           {response.navigation.links.map((link) => (
-            <li
-              className={`odd:border-b p-2 border-r border-solid border-blue-400 even:border-t last:border-r-0 odd:hover:bg-blue-400 even:hover:bg-blue-800 transition-all duration-1000`}
+            <Link
+              className="border-solid border-blue-300 odd:border-b even:border-t odd:rounded-b-lg even:rounded-t-lg transition-all duration-1000 hover:-translate-y-1 py-2 px-3"
+              href={link.slug}
             >
-              <Link href={link.slug}>{link.title}</Link>
-            </li>
+              <li className="uppercase text-sm">{link.title}</li>
+            </Link>
           ))}
         </ul>
       </nav>
