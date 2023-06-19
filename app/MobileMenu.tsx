@@ -18,7 +18,7 @@ export default function MobileMenu() {
 
   return (
     <div
-      className={`grid grid-cols-3  justify-center items-center md:hidden bottom-0 left-0 right-0 p-4 bg-blue-950 sticky`}
+      className={`grid grid-cols-3 text-gray-200 justify-center items-center md:hidden bottom-0 left-0 right-0 p-4 bg-blue-500 sticky`}
     >
       <MenuLink href="/fisk" icon={<FishIcon width={40} height={40} color="text-white" />} />
       <MenuSearch />
@@ -36,12 +36,12 @@ export default function MobileMenu() {
 
 function MenuSearch() {
   return (
-    <div className="flex gap-1 group border-blue-600 p-2 rounded-2xl focus-within:rounded-none transition-all duration-1000 outline-none focus-within:border-blue-400 border-2">
+    <div className="flex gap-1 group p-2 hover:rounded-3xl focus-within:rounded-3xl transition-all duration-1000 outline-none bg-blue-50 text-blue-950">
       <SearchIcon />
       <input
         className="w-full bg-transparent placeholder:opacity-50"
         type="search"
-        placeholder={"👷‍♂️🏗️"}
+        placeholder={"👷‍♂️"}
       />
     </div>
   )
@@ -74,38 +74,19 @@ function MobileMenuLayout({
   return (
     <div
       className={`fixed z-10 transition-all duration-1000 bottom-0 left-0 right-0 bg-blue-800/75 rounded-t-3xl overflow-y-scroll overflow-x-hidden p-4 grid gap-5 ${
-        isOpen ? "top-[20%]" : "top-full"
+        isOpen ? "top-[15%]" : "top-full"
       }`}
     >
       <div className="grid grid-cols-2 gap-3">
-        <MobileMenuCategory
-          color="bg-blue-400"
-          hoverColor="hover:bg-blue-400/75"
-          title="Fisk"
-          href="/fisk"
-          onClick={closeMenu}
-        />
+        <MobileMenuCategory color="bg-blue-400" title="Fisk" href="/fisk" onClick={closeMenu} />
         <MobileMenuCategory
           color="bg-blue-300"
-          hoverColor="hover:bg-blue-300/75"
           title="Artiklar"
           href="/artiklar"
           onClick={closeMenu}
         />
-        <MobileMenuCategory
-          color="bg-blue-300"
-          hoverColor="hover:bg-blue-300/75"
-          title="Fisk"
-          href="/fisk"
-          onClick={closeMenu}
-        />
-        <MobileMenuCategory
-          color="bg-blue-400"
-          hoverColor="hover:bg-blue-400/75"
-          title="Fisk"
-          href="/fisk"
-          onClick={closeMenu}
-        />
+        <MobileMenuCategory color="bg-blue-300" title="Fisk" href="/fisk" onClick={closeMenu} />
+        <MobileMenuCategory color="bg-blue-400" title="Fisk" href="/fisk" onClick={closeMenu} />
       </div>
       <ul className="grid gap-2">
         <li>
@@ -141,13 +122,11 @@ function MobileMenuOverlay({
 
 function MobileMenuCategory({
   color,
-  hoverColor,
   title,
   href,
   onClick,
 }: {
   color: string
-  hoverColor: string
   title: string
   href: string
   onClick: () => void
@@ -156,9 +135,9 @@ function MobileMenuCategory({
     <Link
       href={href}
       onClick={onClick}
-      className={`${color} ${hoverColor} active:rounded-3xl rounded-2xl p-3 min-h-[150px] transition-all duration-1000 hover:rounded-none`}
+      className={`${color} p-3 aspect-square transition-all duration-1000`}
     >
-      <h3 className="text-blue-950 font-bold text-2xl">{title}</h3>
+      <h3 className=" font-bold text-2xl">{title}</h3>
     </Link>
   )
 }

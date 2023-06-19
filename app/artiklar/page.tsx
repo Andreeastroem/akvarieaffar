@@ -21,14 +21,15 @@ export default async function ArticlePage() {
   return (
     <>
       <h1>Artiklar</h1>
-      <ul className="flex flex-col gap-2 py-3 text-blue-50">
+      <ul className="flex flex-col gap-4 py-3">
         {articlePages.allArticles.map((article) => {
           return (
-            <Link className="" href={`/artiklar/${article.slug}`}>
-              <li className="shadow-emerald-700 shadow-sm rounded-lg p-2 hover:shadow-none transition-all duration-1000">
-                <span className="border-b border-solid border-white">{article.title}</span>
-                <p className="text-[0.675rem] leading-4">{article.preamble}</p>
+            <Link className="bg-blue-50 p-3 flex items-center" href={`/artiklar/${article.slug}`}>
+              <li className="transition-all duration-1000 max-w-[80%]">
+                <h2 className="text-xl pb-2 truncate">{article.title}</h2>
+                <p className="text-sm leading-4 max-w-lg">{article.preamble}</p>
               </li>
+              <div className="h-8 w-8 bg-blue-500 mx-auto animate-pulse" />
             </Link>
           )
         })}

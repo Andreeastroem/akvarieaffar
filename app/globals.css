@@ -5,9 +5,7 @@
 h1 {
   @apply uppercase tracking-wider text-xl font-bold;
 }
-h2 {
-  @apply font-bold text-3xl;
-}
+
 p {
   @apply text-lg;
 }

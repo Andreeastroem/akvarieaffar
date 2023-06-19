@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="sv">
       <ClerkProvider>
-        <body className="max-w-7xl mx-auto relative dark-gradient text-gray-200 min-h-screen flex flex-col">
+        <body className="max-w-7xl mx-auto text-blue-950 relative min-h-screen flex flex-col">
           <div className="bg-red-300/75 px-3 py-2 whitespace-nowrap overflow-x-hidden">
             <span className="w-full animate-marquee inline-block">
               Hemsidan är under uppbyggnad 👷‍♂️
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           {/** @ts-expect-error Server Component */}
           <Header />
-          <div className="flex-grow px-3">{children}</div>
+          <div className="flex-grow px-3 py-4">{children}</div>
           <MobileMenu />
         </body>
       </ClerkProvider>
