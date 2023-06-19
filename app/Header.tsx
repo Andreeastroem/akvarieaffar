@@ -12,7 +12,7 @@ export default async function Header() {
   }
 
   return (
-    <header className="grid grid-cols-1 md:grid-cols-3 relative">
+    <header className="grid grid-cols-1 md:grid-cols-3 relative bg-blue-500 py-6">
       <Link className="text-center col-span-1 md:col-start-2" href={"/"}>
         <h1 className="p-2">Akvarieaffären</h1>
       </Link>

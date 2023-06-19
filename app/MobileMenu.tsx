@@ -18,7 +18,7 @@ export default function MobileMenu() {
 
   return (
     <div
-      className={`grid grid-cols-3 -mx-3 -mb-3 justify-center items-center md:hidden bottom-0 left-0 right-0 p-4 bg-blue-950 sticky`}
+      className={`grid grid-cols-3  justify-center items-center md:hidden bottom-0 left-0 right-0 p-4 bg-blue-950 sticky`}
     >
       <MenuLink href="/fisk" icon={<FishIcon width={40} height={40} color="text-white" />} />
       <MenuSearch />
