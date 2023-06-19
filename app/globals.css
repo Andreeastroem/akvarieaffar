@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1 {
-  @apply font-bold text-4xl;
+  @apply uppercase tracking-wider text-xl font-bold;
 }
 h2 {
   @apply font-bold text-3xl;

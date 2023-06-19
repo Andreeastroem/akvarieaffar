@@ -10,7 +10,7 @@ const kavivanar = Kavivanar({
 export default async function TodoPage() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 pt-8">
-      <h2 className={`${kavivanar.className}`}>TODO for this webpage</h2>
+      <h1 className={`${kavivanar.className}`}>TODO for this webpage</h1>
       <ul className={`${inter.className} list-disc`}>
         <li>✅ OAuth (maybe via google?)</li>
         <li>Stripe payment ?</li>

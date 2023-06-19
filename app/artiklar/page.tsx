@@ -20,7 +20,7 @@ export default async function ArticlePage() {
   }
   return (
     <>
-      <h2>Artiklar</h2>
+      <h1>Artiklar</h1>
       <ul className="flex flex-col gap-2 py-3 text-blue-50">
         {articlePages.allArticles.map((article) => {
           return (

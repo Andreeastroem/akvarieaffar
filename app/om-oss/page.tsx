@@ -30,7 +30,7 @@ export default async function AboutPage() {
 
   return (
     <div className="flex flex-col gap-5 pt-8">
-      <h2 className="text-center text-blue-200">{page.title}</h2>
+      <h1 className="">{page.title}</h1>
       <StructuredText data={page.content} />
       <div className="w-full justify-center flex gap-1 text-gray-400/75">
         <span>Skrivet av</span>

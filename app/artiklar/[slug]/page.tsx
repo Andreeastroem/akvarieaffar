@@ -58,7 +58,7 @@ export default async function ArticlePage({ params: { slug } }: Props) {
                 }}
                 className="p-2 rounded-md"
               >
-                <h2>{content.title}</h2>
+                <h1>{content.title}</h1>
                 <RichText content={content.content} />
               </div>
             )

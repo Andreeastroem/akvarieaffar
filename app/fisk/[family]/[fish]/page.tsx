@@ -33,7 +33,7 @@ export default async function FishPage({ searchParams: { id } }: Props) {
 
   return (
     <div className="grid gap-6">
-      <h2>{fishInformation.trade_name}</h2>
+      <h1>{fishInformation.trade_name}</h1>
       <h3>{fishInformation.scientific_name}</h3>
       <BannerImage />
       <div className="grid grid-cols-2 gap-2">

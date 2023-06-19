@@ -32,7 +32,7 @@ export default async function FishFamilyLandingPage({ params: { family } }: Prop
 
   return (
     <div>
-      <h2>{family}</h2>
+      <h1>{family}</h1>
       <div className="grid grid-cols-2 md:grid-cols-4">
         {fishInFamily.map((fish) => {
           const slug = slugify(fish.scientific_name)
