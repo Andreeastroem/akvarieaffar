@@ -1,4 +1,5 @@
 export function slugify(name: string) {
+  console.log("name", name)
   const slug = name
     .trim()
     .replace(" ", "-")

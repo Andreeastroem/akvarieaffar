@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 
-import DBFetch from "@/lib/db/request"
+import CMSFetch from "@/lib/cms/request"
 import { Fish } from "@/lib/db/types"
 
 type Props = {
@@ -14,13 +14,11 @@ type Props = {
 }
 
 type QueryResponse = {
-  fishCollection: {
-    edges: Array<{ node: Fish }>
-  }
+  allFish: Array<Fish>
 }
 
 export default async function FishPage({ searchParams: { id } }: Props) {
-  const response = await DBFetch<QueryResponse>({
+  const response = await CMSFetch<QueryResponse>({
     query: FISH_PAGE_QUERY,
     variables: { id },
   })
@@ -29,12 +27,12 @@ export default async function FishPage({ searchParams: { id } }: Props) {
     return notFound()
   }
 
-  const fishInformation = response.fishCollection.edges[0].node
+  const fishInformation = response.allFish[0]
 
   return (
     <div className="grid gap-6">
-      <h1>{fishInformation.trade_name}</h1>
-      <h3>{fishInformation.scientific_name}</h3>
+      <h1>{fishInformation.commonName}</h1>
+      <h3>{fishInformation.scientificName}</h3>
       <BannerImage />
       <div className="grid grid-cols-2 gap-2">
         <Temperature min={fishInformation.min_temperature} max={fishInformation.max_temperature} />
@@ -109,6 +107,23 @@ function FishLength({ length }: { length: number }) {
 }
 
 const FISH_PAGE_QUERY = `
+  query getFishPage($id: ItemId) {
+    allFish(filter: {id: {eq: $id}}) {
+      commonName
+      scientificName
+      price
+      family
+      difficulty
+      continentOfOrigin
+      countryOfOrigin
+      description {
+        value
+      }
+    }
+  }
+`
+
+const _FISH_PAGE_QUERY_DB = `
   query getFish($id: BigInt!) {
     fishCollection(filter: {id: {eq: $id}}) {
       edges {

@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import DBFetch from "@/lib/db/request"
+import CMSFetch from "@/lib/cms/request"
 import { Fish } from "@/lib/db/types"
 import { slugify } from "@/lib/util/slugify"
 
@@ -13,13 +13,11 @@ type Props = {
 }
 
 type QueryResponse = {
-  fishCollection: {
-    edges: Array<{ node: Pick<Fish, "scientific_name" | "trade_name" | "id"> }>
-  }
+  allFish: Array<Pick<Fish, "scientificName" | "commonName" | "id">>
 }
 
 export default async function FishFamilyLandingPage({ params: { family } }: Props) {
-  const res = await DBFetch<QueryResponse>({
+  const res = await CMSFetch<QueryResponse>({
     query: FAMILY_PAGE_QUERY,
     variables: { family },
   })
@@ -28,19 +26,19 @@ export default async function FishFamilyLandingPage({ params: { family } }: Prop
     return notFound()
   }
 
-  const fishInFamily = res.fishCollection.edges.map((edge) => edge.node)
+  const fishInFamily = res.allFish
 
   return (
     <div>
       <h1>{family}</h1>
       <div className="grid grid-cols-2 md:grid-cols-4">
         {fishInFamily.map((fish) => {
-          const slug = slugify(fish.scientific_name)
+          const slug = slugify(fish.scientificName)
           return (
             <FishLink
               href={`/fisk/${family}/${slug}?id=${fish.id}`}
-              title={fish.scientific_name}
-              key={fish.scientific_name}
+              title={fish.scientificName}
+              key={fish.scientificName}
             />
           )
         })}
@@ -74,6 +72,18 @@ function FishLink({ href, title }: { href: string; title: string }) {
 }
 
 const FAMILY_PAGE_QUERY = `
+  query familyPage($family: String!) {
+    allFish(filter: {family: {
+      eq: $family
+    }}) {
+      commonName
+      scientificName
+      id
+    }
+  }
+`
+
+const _FAMILY_PAGE_QUERY_DB = `
   query($family: String!) {
     fishCollection(filter: {
       family: {

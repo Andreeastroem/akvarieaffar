@@ -1,13 +1,11 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import DBFetch from "@/lib/db/request"
+import CMSFetch from "@/lib/cms/request"
 import { Fish } from "@/lib/db/types"
 
 type QueryResponse = {
-  fishCollection: {
-    edges: Array<{ node: Pick<Fish, "family"> }>
-  }
+  allFish: Array<Pick<Fish, "family">>
 }
 
 export default async function FishLandingPage() {
@@ -15,13 +13,13 @@ export default async function FishLandingPage() {
    * Fetch all categories from database
    * Mocked for now
    *  */
-  const res = await DBFetch<QueryResponse>({ query: FISH_QUERY })
+  const res = await CMSFetch<QueryResponse>({ query: FISH_QUERY })
 
   if (!res) {
     return notFound()
   }
 
-  const families = res.fishCollection.edges.map((edge) => edge.node.family)
+  const families = res.allFish.map((fish) => fish.family)
 
   return (
     <div className="grid md:grid-cols-2 gap-3">
@@ -41,6 +39,14 @@ export default async function FishLandingPage() {
 }
 
 const FISH_QUERY = `
+  query {
+    allFish {
+      family
+    }
+  }
+`
+
+const FISH_QUERY_DB = `
   query getAllFamilies {
     fishCollection {
       edges {
