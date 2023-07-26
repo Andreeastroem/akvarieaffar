@@ -1,6 +1,7 @@
 import "./globals.css"
 
 import { ClerkProvider } from "@clerk/nextjs/app-beta"
+import { useMemo } from "react"
 
 import Header from "./Header"
 import MobileMenu from "./MobileMenu"
@@ -12,6 +13,13 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const yearText = useMemo(() => {
+    const year = new Intl.DateTimeFormat("sv", { dateStyle: "short" })
+      .formatToParts(new Date())
+      .filter((p) => p.type === "year")[0].value
+
+    return `© 2023 ${year === "2023" ? "" : `-${year}`}`
+  }, [])
   return (
     <html lang="sv">
       <ClerkProvider>
@@ -28,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <div className="flex-grow px-3 py-4">{children}</div>
           <MobileMenu />
+          <footer>{yearText}</footer>
         </body>
       </ClerkProvider>
     </html>
