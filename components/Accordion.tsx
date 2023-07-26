@@ -16,7 +16,7 @@ export default function QuickFacts({
       <div className={className}>{children}</div>
       <div
         className={`w-full p-2 flex justify-center items-center text-white text-2xl cursor-pointer transition-all ${
-          isOpen ? "" : "bg-gradient-to-t from-gray-950 to-transparent bottom-0 absolute"
+          isOpen ? "" : "bg-gradient-to-t from-white to-transparent bottom-0 absolute"
         }`}
         onClick={() => setOpen(!isOpen)}
       >
