@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -7,6 +8,11 @@ type ArticlePreview = {
   title: string
   slug: string
   preamble: string
+  coverImage: {
+    alt: string
+    title: string
+    url: string
+  }
 }
 
 export default async function ArticlePage() {
@@ -24,12 +30,25 @@ export default async function ArticlePage() {
       <ul className="flex flex-col gap-4 py-3">
         {articlePages.allArticles.map((article) => {
           return (
-            <Link className="bg-blue-50 p-3 flex items-center" href={`/artiklar/${article.slug}`}>
+            <Link
+              className="p-3 text-white overflow-hidden hover:rounded-xl hover:drop-shadow-xl hover:shadow-black transition-all duration-700 flex relative items-center justify-between"
+              href={`/artiklar/${article.slug}`}
+            >
+              <Image
+                alt={article.coverImage.alt}
+                src={article.coverImage.url}
+                title={article.coverImage.title}
+                fill
+                className="-z-10"
+                sizes="(max-width: 640px) 100vw, 640px"
+                style={{
+                  objectFit: "cover",
+                }}
+              />
               <li className="transition-all duration-1000 max-w-[80%]">
                 <h2 className="text-xl pb-2 truncate">{article.title}</h2>
                 <p className="text-sm leading-4 max-w-lg">{article.preamble}</p>
               </li>
-              <div className="h-8 w-8 bg-blue-500 mx-auto animate-pulse" />
             </Link>
           )
         })}
@@ -44,6 +63,11 @@ const ARTICLES_QUERY = `
       title
       slug
       preamble
+      coverImage {
+        alt
+        title
+        url
+      }
     }
   }
 `
