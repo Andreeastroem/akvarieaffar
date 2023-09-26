@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation"
-import { StructuredText, StructuredTextDocument } from "react-datocms"
+import { StructuredTextDocument } from "react-datocms"
 
 import CMSRequest from "../../lib/cms/request"
+import StructuredTextClientWrapper from "./StructuredTextClientWrapper"
 
 type TAboutPage = {
   historyPage: {
@@ -31,7 +32,7 @@ export default async function AboutPage() {
   return (
     <div className="flex flex-col gap-5 pt-8">
       <h1 className="">{page.title}</h1>
-      <StructuredText data={page.content} />
+      <StructuredTextClientWrapper data={page.content} />
       <div className="w-full justify-center flex gap-1 text-gray-400/75">
         <span>Skrivet av</span>
         <span>{page.author.firstname}</span>
