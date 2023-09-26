@@ -32,11 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               Hemsidan är under uppbyggnad 👷‍♂️
             </span>
           </div>
-          {/** @ts-expect-error Server Component */}
           <Header />
           <div className="flex-grow px-3 py-4">{children}</div>
-          <MobileMenu />
           <footer>{yearText}</footer>
+          <MobileMenu />
         </body>
       </ClerkProvider>
     </html>
