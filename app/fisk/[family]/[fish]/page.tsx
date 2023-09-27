@@ -31,9 +31,41 @@ export default async function FishPage({ searchParams: { id } }: Props) {
 
   return (
     <div className="grid gap-6">
+      <BannerImage />
       <h1>{fishInformation.commonName}</h1>
       <h3>{fishInformation.scientificName}</h3>
-      <BannerImage />
+      <Aquarium fishInfo={fishInformation} />
+    </div>
+  )
+}
+
+function Aquarium({ fishInfo }: { fishInfo: Fish }) {
+  return (
+    <div className="w-full flex flex-col items-center">
+      <div className="w-full md:h-96 h-60 border flex justify-between">
+        <div className="h-full flex flex-col-reverse justify-between items-center w-[10%] min-w-[32px] p-1 bg-gradient-to-b from-transparent to-red-400">
+          <span>{fishInfo.temperature.min}</span>
+          <span>˚C</span>
+          <span>{fishInfo.temperature.max}</span>
+        </div>
+        <div id="aquarium-content-area" className="w-full flex items-center flex-col">
+          <span>{fishInfo.aquariumMinVolume} liter</span>
+          <span>{fishInfo.depth}</span>
+          <span>{fishInfo.length} cm lång</span>
+          <span>{fishInfo.socialNeeds}</span>
+          <span>{fishInfo.waterType}</span>
+        </div>
+        <div className="h-full flex flex-col-reverse justify-between items-center w-[10%] min-w-[32px] p-1 bg-gradient-to-b from-blue-300 to-green-400">
+          <span>{fishInfo.ph.min}</span>
+          <span>pH</span>
+          <span>{fishInfo.ph.max}</span>
+        </div>
+      </div>
+      <span>
+        {"<----------"}
+        {fishInfo.aquariumMinSize} cm
+        {"---------->"}
+      </span>
     </div>
   )
 }
@@ -79,33 +111,6 @@ const FISH_PAGE_QUERY = `
       depth
       diet
       genderDifferences
-    }
-  }
-`
-
-const _FISH_PAGE_QUERY_DB = `
-  query getFish($id: BigInt!) {
-    fishCollection(filter: {id: {eq: $id}}) {
-      edges {
-        node {
-          id
-          scientific_name
-          trade_name
-          family
-          continent
-          origin
-          water_type
-          diet
-          difficulty
-          aquarium_min_size
-          aquarium_min_volume
-          min_temperature
-          max_temperature
-          min_pH_value
-          max_pH_value
-          length
-        }
-      }
     }
   }
 `

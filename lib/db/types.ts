@@ -4,21 +4,15 @@ export type Continent = "Afrika" | "Sydamerika" | "Nordamerika" | "Europa" | "As
 export type Diet = "allätare" | "växtätare" | "köttätare"
 export type WaterType = "sötvatten" | "saltvatten" | "brackvatten"
 export type DepthLevel = "botten" | "mellan" | "yta"
+export type socialNeeds = "stim" | "par" | "ensam"
 
 export type Fish = {
   scientificName: string
   continentOfOrigin: Continent
   countryOfOrigin: string
-  aquarium_min_size: number
-  aquarium_min_volume: number
-  min_temperature: number
-  max_temperature: number
-  min_pH_value: number
-  max_pH_value: number
   length: number
   difficulty: number
   diet: Diet
-  water_type: WaterType
   commonName: string
   family: string
   id: number
