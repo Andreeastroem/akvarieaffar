@@ -25,7 +25,7 @@ export default async function ArticlePage() {
     return notFound()
   }
   return (
-    <div className="max-w-xl md:mx-auto">
+    <div className="max-w-default md:mx-auto">
       <h1>Artiklar</h1>
       <ul className="flex flex-col gap-4 py-3">
         {articlePages.allArticles.map((article) => {

@@ -20,6 +20,9 @@ module.exports = {
       animation: {
         marquee: "marquee 20s linear infinite",
       },
+      maxWidth: {
+        default: 600,
+      },
     },
   },
   plugins: [],

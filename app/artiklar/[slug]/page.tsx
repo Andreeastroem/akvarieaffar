@@ -44,7 +44,8 @@ export default async function ArticlePage({ params: { slug } }: Props) {
   const article = pageData.article
 
   return (
-    <div>
+    <div className="max-w-default md:mx-auto">
+      <h1>{article.title}</h1>
       <RichText content={article.content.value} />
       {article.freeFormContent.length > 0 && (
         <Accordion className="flex flex-col gap-2">
@@ -57,6 +58,7 @@ export default async function ArticlePage({ params: { slug } }: Props) {
                   color: content.textColor?.hex ?? "black",
                 }}
                 className="p-2 rounded-md"
+                key={content.title}
               >
                 <h1>{content.title}</h1>
                 <RichText content={content.content} />
