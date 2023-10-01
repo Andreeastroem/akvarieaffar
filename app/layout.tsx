@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           <Header />
           <div className="flex-grow px-3 py-4">{children}</div>
-          <footer>{yearText}</footer>
+          <footer className="min-w-full px-3 max-w-default mx-auto">{yearText}</footer>
           <MobileMenu />
         </body>
       </ClerkProvider>

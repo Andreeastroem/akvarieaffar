@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { StructuredTextDocument } from "react-datocms"
 
-import Accordion from "@/components/Accordion"
+import Notification from "@/components/Notification"
 import { RichText } from "@/components/RichText"
 import CMSFetch from "@/lib/cms/request"
 
@@ -44,28 +44,29 @@ export default async function ArticlePage({ params: { slug } }: Props) {
   const article = pageData.article
 
   return (
-    <div className="max-w-default md:mx-auto">
+    <div className="max-w-default md:mx-auto grid gap-5">
       <h1>{article.title}</h1>
       <RichText content={article.content.value} />
       {article.freeFormContent.length > 0 && (
-        <Accordion className="flex flex-col gap-2">
-          {article.freeFormContent.map((content) => {
-            if (!content) return null
-            return (
-              <div
-                style={{
-                  backgroundColor: content.color.hex,
-                  color: content.textColor?.hex ?? "black",
-                }}
-                className="p-2 rounded-md"
-                key={content.title}
-              >
-                <h1>{content.title}</h1>
-                <RichText content={content.content} />
-              </div>
-            )
-          })}
-        </Accordion>
+        <Notification>
+          <div className="grid gap-3">
+            {article.freeFormContent.map((content) => {
+              if (!content) return null
+              return (
+                <div
+                  style={{
+                    backgroundColor: content.color.hex,
+                    color: content.textColor?.hex ?? "black",
+                  }}
+                  className="p-5 rounded-xl"
+                >
+                  <h1>{content.title}</h1>
+                  <RichText content={content.content} />
+                </div>
+              )
+            })}
+          </div>
+        </Notification>
       )}
     </div>
   )

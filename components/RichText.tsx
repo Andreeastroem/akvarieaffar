@@ -13,14 +13,19 @@ export function RichText({ content }: { content: StructuredTextDocument }) {
           switch (node.style) {
             case "numbered":
               return (
-                <ol className="list-decimal grid gap-3 italic max-w-xl mx-auto py-6">{children}</ol>
+                <ol className="list-decimal grid gap-3 italic max-w-md md:mx-auto py-6 ml-5">
+                  {children}
+                </ol>
               )
             case "bulleted":
-              return <ul className="list-disc grid gap-3 italic max-w-xl mx-auto">{children}</ul>
+              return (
+                <ul className="list-disc grid gap-3 italic max-w-md md:mx-auto py-6 ml-5">
+                  {children}
+                </ul>
+              )
           }
         }),
         renderNodeRule(isListItem, ({ node, children, key }) => {
-          console.log("node", node.type)
           return (
             <li className="" key={key}>
               {children}
