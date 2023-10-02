@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import { StructuredTextDocument } from "react-datocms"
 
@@ -14,7 +15,11 @@ type Props = {
 type Data = {
   title: string
   slug: string
-  preamble: string
+  coverImage: {
+    url: string
+    alt: string
+    title: string
+  }
   content: {
     links: Array<string>
     value: StructuredTextDocument
@@ -45,6 +50,15 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 
   return (
     <div className="max-w-default md:mx-auto grid gap-5">
+      <div className="relative w-full aspect-[3/1]">
+        <Image
+          className="object-cover"
+          src={pageData.article.coverImage.url}
+          alt={pageData.article.coverImage.alt}
+          sizes="(max-width: 600px) 100vw, 600px"
+          fill
+        />
+      </div>
       <h1>{article.title}</h1>
       <RichText content={article.content.value} />
       {article.freeFormContent.length > 0 && (
@@ -77,7 +91,11 @@ query($slug: String!) {
     article(filter: {slug: {eq: $slug}}) {
       title
       slug
-      preamble
+      coverImage {
+        url
+        alt
+        title
+      }
       content {
         links
         value

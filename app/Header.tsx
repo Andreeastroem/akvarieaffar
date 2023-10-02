@@ -22,7 +22,7 @@ export default async function Header() {
       <nav className="hidden md:block md:col-span-3">
         <ul className="flex justify-center w-full max-w-3xl mx-auto tracking-widest gap-2">
           {response.navigation.links.map((link) => (
-            <Link className="py-2 px-3 hover:underline" href={link.slug}>
+            <Link className="py-2 px-3 hover:underline" href={`/${link.slug}`}>
               <li className="uppercase text-sm">{link.title}</li>
             </Link>
           ))}

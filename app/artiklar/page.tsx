@@ -40,7 +40,7 @@ export default async function ArticlePage() {
                 title={article.coverImage.title}
                 fill
                 className="-z-10"
-                sizes="(max-width: 640px) 100vw, 640px"
+                sizes="(max-width: 600px) 100vw, 600px"
                 style={{
                   objectFit: "cover",
                 }}
