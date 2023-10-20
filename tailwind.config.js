@@ -16,9 +16,14 @@ module.exports = {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-100%)" },
         },
+        wave: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-0.5rem)" },
+        },
       },
       animation: {
         marquee: "marquee 20s linear infinite",
+        wave: "wave 1s ease-in-out infinite",
       },
       maxWidth: {
         default: 600,
