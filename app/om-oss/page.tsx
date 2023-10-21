@@ -1,3 +1,4 @@
+import gql from "graphql-tag"
 import { notFound } from "next/navigation"
 import { StructuredTextDocument } from "react-datocms"
 
@@ -42,10 +43,10 @@ export default async function AboutPage() {
   )
 }
 
-const CMS_QUERY = `
+const CMS_QUERY = gql`
   query {
     historyPage {
-      title 
+      title
       content {
         value
       }

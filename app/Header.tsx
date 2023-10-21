@@ -1,4 +1,5 @@
 import { UserButton } from "@clerk/nextjs/app-beta"
+import gql from "graphql-tag"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -41,7 +42,7 @@ type NavigationQueryResponse = {
   }
 }
 
-const NAVIGATION_LINKS_QUERY = `
+const NAVIGATION_LINKS_QUERY = gql`
   query NavigationLinks {
     navigation {
       links {

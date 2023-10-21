@@ -1,3 +1,4 @@
+import { gql } from "graphql-tag"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -38,20 +39,17 @@ export default async function FishLandingPage() {
   )
 }
 
-const FISH_QUERY = `
+const FISH_QUERY = gql`
   query {
     allFish {
       family
-    }
-  }
-`
-
-const FISH_QUERY_DB = `
-  query getAllFamilies {
-    fishCollection {
-      edges {
-        node {
-          family
+      mainImage {
+        alt
+        url
+        responsiveImage {
+          height
+          width
+          sizes
         }
       }
     }

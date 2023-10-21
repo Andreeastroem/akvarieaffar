@@ -1,3 +1,4 @@
+import gql from "graphql-tag"
 import { notFound } from "next/navigation"
 
 import CMSFetch from "@/lib/cms/request"
@@ -74,9 +75,9 @@ function BannerImage() {
   return <div className="w-full h-52 bg-blue-400 rounded-3xl animate-pulse" />
 }
 
-const FISH_PAGE_QUERY = `
+const FISH_PAGE_QUERY = gql`
   query getFishPage($id: ItemId) {
-    allFish(filter: {id: {eq: $id}}) {
+    allFish(filter: { id: { eq: $id } }) {
       commonName
       scientificName
       price

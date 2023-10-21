@@ -1,5 +1,7 @@
+import { ASTNode, print } from "graphql"
+
 type Props = {
-  query: string
+  query: ASTNode
   variables?: Record<string, unknown>
 }
 
@@ -12,8 +14,8 @@ export default async function CMSFetch<T>({ query, variables }: Props): Promise<
       Authorization: process.env.DATOCMS_KEY ?? "",
     },
     body: JSON.stringify({
-      query,
-      variables,
+      query: print(query),
+      variables: { ...variables },
     }),
   })
 
@@ -24,6 +26,7 @@ export default async function CMSFetch<T>({ query, variables }: Props): Promise<
   const json = await res.json()
 
   if (json.errors) {
+    console.log(json.errors)
     console.error(JSON.stringify(json.errors, null, 2))
     throw new Error(`Graphql error: ${json.errors}`)
   }

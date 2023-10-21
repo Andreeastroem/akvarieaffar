@@ -1,3 +1,4 @@
+import gql from "graphql-tag"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -57,7 +58,7 @@ export default async function ArticlePage() {
   )
 }
 
-const ARTICLES_QUERY = `
+const ARTICLES_QUERY = gql`
   query {
     allArticles {
       title

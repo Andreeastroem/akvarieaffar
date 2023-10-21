@@ -1,3 +1,4 @@
+import gql from "graphql-tag"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -71,32 +72,12 @@ function FishLink({ href, title }: { href: string; title: string }) {
   )
 }
 
-const FAMILY_PAGE_QUERY = `
+const FAMILY_PAGE_QUERY = gql`
   query familyPage($family: String!) {
-    allFish(filter: {family: {
-      eq: $family
-    }}) {
+    allFish(filter: { family: { eq: $family } }) {
       commonName
       scientificName
       id
-    }
-  }
-`
-
-const _FAMILY_PAGE_QUERY_DB = `
-  query($family: String!) {
-    fishCollection(filter: {
-      family: {
-        eq: $family
-      }
-    }) {
-      edges {
-        node {
-          scientific_name
-          trade_name
-          id
-        }
-      }
     }
   }
 `

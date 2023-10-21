@@ -1,3 +1,4 @@
+import gql from "graphql-tag"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { StructuredTextDocument } from "react-datocms"
@@ -86,9 +87,9 @@ export default async function ArticlePage({ params: { slug } }: Props) {
   )
 }
 
-const ARTICLE_PAGE_QUERY = `
-query($slug: String!) {
-    article(filter: {slug: {eq: $slug}}) {
+const ARTICLE_PAGE_QUERY = gql`
+  query ($slug: String!) {
+    article(filter: { slug: { eq: $slug } }) {
       title
       slug
       coverImage {
@@ -113,5 +114,5 @@ query($slug: String!) {
         }
       }
     }
-}
+  }
 `
