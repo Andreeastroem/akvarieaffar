@@ -1,11 +1,9 @@
 import gql from "graphql-tag"
-import Image from "next/image"
 import { notFound } from "next/navigation"
 
 import Slideshow from "@/components/Slideshow"
 import { additionalImagesFragment, mainImageFragment } from "@/lib/cms/fragments"
 import CMSFetch from "@/lib/cms/request"
-import { DatoImage } from "@/lib/cms/types"
 import { Fish } from "@/lib/db/types"
 
 type Props = {
@@ -36,9 +34,12 @@ export default async function FishPage({ searchParams: { id } }: Props) {
 
   return (
     <div className="grid gap-6">
-      <h1>{fishInformation.commonName}</h1>
-      <h3>{fishInformation.scientificName}</h3>
-      {fishInformation.mainImage && <BannerImage image={fishInformation.mainImage} />}
+      <div>
+        <h1>{fishInformation.commonName}</h1>
+        <h2 className="font-extralight text-xs capitalize text-gray-500">
+          {fishInformation.scientificName}
+        </h2>
+      </div>
       {fishInformation.additionalImages && <Slideshow images={fishInformation.additionalImages} />}
       <Aquarium fishInfo={fishInformation} />
     </div>
@@ -72,19 +73,6 @@ function Aquarium({ fishInfo }: { fishInfo: Fish }) {
         {fishInfo.aquariumMinSize} cm
         {"---------->"}
       </span>
-    </div>
-  )
-}
-
-function BannerImage({ image }: { image: DatoImage }) {
-  return (
-    <div className="relative w-full aspect-[3/2] md:mx-0">
-      <Image
-        fill
-        alt={image.alt}
-        src={image.responsiveImage.src}
-        sizes={image.responsiveImage.sizes}
-      />
     </div>
   )
 }
