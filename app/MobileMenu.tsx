@@ -25,7 +25,7 @@ export default function MobileMenu() {
       <MenuButton
         icon={<Menu />}
         onClick={() => {
-          setIsOpen(true)
+          setIsOpen((prev) => !prev)
         }}
       />
       {isOpen && (
@@ -45,11 +45,11 @@ export default function MobileMenu() {
 function MenuPill({ href, title }: { href: string; title: string }) {
   return (
     <Link className="flex group" href={href}>
-      <div className="border-l group-hover:to-blue-300/25 border-solid border-black w-2 rounded-l-full bg-gradient-to-r from-blue-50/25 to-blue-100/25" />
-      <div className="whitespace-nowrap bg-blue-100/25 group-hover:bg-blue-300/25 group-active:border-t group-active:border-black">
+      <div className="border-l group-hover:to-blue-300/25 border-solid border-black w-2 rounded-l-full bg-gradient-to-r from-blue-950/25 to-blue-500/25" />
+      <div className="whitespace-nowrap bg-blue-500/25 group-hover:bg-blue-300/25 group-active:border-t group-active:border-black">
         {title}
       </div>
-      <div className="border-r group-hover:to-blue-300/25 border-solid border-black w-2 rounded-r-full bg-gradient-to-l from-blue-50/25 to-blue-100/25" />
+      <div className="border-r group-hover:to-blue-300/25 border-solid border-black w-2 rounded-r-full bg-gradient-to-l from-blue-950/25 to-blue-500/25" />
     </Link>
   )
 }
