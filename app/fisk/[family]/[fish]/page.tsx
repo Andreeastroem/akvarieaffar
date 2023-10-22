@@ -1,7 +1,11 @@
 import gql from "graphql-tag"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 
+import Slideshow from "@/components/Slideshow"
+import { additionalImagesFragment, mainImageFragment } from "@/lib/cms/fragments"
 import CMSFetch from "@/lib/cms/request"
+import { DatoImage } from "@/lib/cms/types"
 import { Fish } from "@/lib/db/types"
 
 type Props = {
@@ -32,9 +36,10 @@ export default async function FishPage({ searchParams: { id } }: Props) {
 
   return (
     <div className="grid gap-6">
-      <BannerImage />
       <h1>{fishInformation.commonName}</h1>
       <h3>{fishInformation.scientificName}</h3>
+      {fishInformation.mainImage && <BannerImage image={fishInformation.mainImage} />}
+      {fishInformation.additionalImages && <Slideshow images={fishInformation.additionalImages} />}
       <Aquarium fishInfo={fishInformation} />
     </div>
   )
@@ -71,11 +76,22 @@ function Aquarium({ fishInfo }: { fishInfo: Fish }) {
   )
 }
 
-function BannerImage() {
-  return <div className="w-full h-52 bg-blue-400 rounded-3xl animate-pulse" />
+function BannerImage({ image }: { image: DatoImage }) {
+  return (
+    <div className="relative w-full aspect-[3/2] md:mx-0">
+      <Image
+        fill
+        alt={image.alt}
+        src={image.responsiveImage.src}
+        sizes={image.responsiveImage.sizes}
+      />
+    </div>
+  )
 }
 
 const FISH_PAGE_QUERY = gql`
+  ${mainImageFragment}
+  ${additionalImagesFragment}
   query getFishPage($id: ItemId) {
     allFish(filter: { id: { eq: $id } }) {
       commonName
@@ -88,10 +104,8 @@ const FISH_PAGE_QUERY = gql`
       description {
         value
       }
-      mainImage {
-        alt
-        url
-      }
+      ...mainImageFragment
+      ...additionalImagesFragment
       waterType
       temperature {
         min

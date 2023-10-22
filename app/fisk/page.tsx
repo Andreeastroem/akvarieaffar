@@ -1,13 +1,11 @@
 import { gql } from "graphql-tag"
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
+import { mainImageFragment } from "@/lib/cms/fragments"
 import CMSFetch from "@/lib/cms/request"
 import { Fish } from "@/lib/db/types"
-
-type QueryResponse = {
-  allFish: Array<Pick<Fish, "family">>
-}
 
 export default async function FishLandingPage() {
   /**
@@ -20,18 +18,38 @@ export default async function FishLandingPage() {
     return notFound()
   }
 
-  const families = res.allFish.map((fish) => fish.family)
+  const families = res.allFish.reduce<Record<string, Pick<Fish, "family" | "mainImage">>>(
+    (acc, fish) => {
+      if (!acc[fish.family]) {
+        return {
+          ...acc,
+          [fish.family]: fish,
+        }
+      }
+      return acc
+    },
+    {}
+  )
 
   return (
     <div className="grid md:grid-cols-2 gap-3">
-      {families.map((family) => {
+      {Object.entries(families).map(([familyName, familyInformation]) => {
         return (
           <Link
-            key={family}
-            href={`/fisk/${family}`}
-            className="border rounded-3xl hover:rounded-none transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center min-h-[200px] hover:bg-indigo-500/25"
+            key={familyName}
+            href={`/fisk/${familyName}`}
+            className="border rounded-3xl hover:rounded-none relative overflow-hidden transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center min-h-[200px] hover:bg-indigo-500/25"
           >
-            {family}
+            {familyInformation.mainImage && (
+              <Image
+                alt={familyInformation.mainImage.alt}
+                src={familyInformation.mainImage.responsiveImage.src}
+                sizes={familyInformation.mainImage.responsiveImage.sizes}
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            )}
+            {familyName}
           </Link>
         )
       })}
@@ -39,19 +57,15 @@ export default async function FishLandingPage() {
   )
 }
 
+type QueryResponse = {
+  allFish: Array<Pick<Fish, "family" | "mainImage">>
+}
 const FISH_QUERY = gql`
+  ${mainImageFragment}
   query {
     allFish {
       family
-      mainImage {
-        alt
-        url
-        responsiveImage {
-          height
-          width
-          sizes
-        }
-      }
+      ...mainImageFragment
     }
   }
 `
