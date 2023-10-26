@@ -5,7 +5,6 @@ import { notFound } from "next/navigation"
 
 import { mainImageFragment } from "@/lib/cms/fragments"
 import CMSFetch from "@/lib/cms/request"
-import { DatoImage } from "@/lib/cms/types"
 import { Fish } from "@/lib/db/types"
 import { slugify } from "@/lib/util/slugify"
 
@@ -32,54 +31,46 @@ export default async function FishFamilyLandingPage({ params: { family } }: Prop
       <h1>{family}</h1>
       <div className="grid grid-cols-2 md:grid-cols-4">
         {fishInFamily.map((fish) => {
-          const slug = slugify(fish.scientificName)
-          return (
-            <FishLink
-              href={`/fisk/${family}/${slug}?id=${fish.id}`}
-              title={fish.scientificName}
-              key={fish.scientificName}
-              image={fish.mainImage}
-            />
-          )
+          return <FishLink fishData={fish} family={family} />
         })}
       </div>
     </div>
   )
 }
 
-function FishLink({
-  href,
-  title,
-  image,
-}: {
-  href: string
-  title: string
-  image: DatoImage | undefined
-}) {
+function FishLink({ fishData, family }: { fishData: FishInformation; family: string }) {
+  const slug = slugify(fishData.scientificName)
   return (
-    <div className="border  hover:m-3 hover:p-0 group overflow-hidden duration-1000 hover:rounded-3xl transition-all border-indigo-700 border-solid p-3">
-      <Link href={href} className="w-full flex justify-center">
-        <div className="relative rounded-3xl">
-          {image && (
+    <div className="border relative hover:m-3 hover:p-0 group overflow-hidden duration-1000 hover:rounded-3xl transition-all border-indigo-700 border-solid p-3">
+      <Link
+        href={`/fisk/${family}/${slug}?id=${fishData.id}`}
+        className="w-full flex justify-center"
+      >
+        <div className="relative rounded-3xl z-10">
+          {fishData.mainImage && (
             <Image
-              src={image.responsiveImage.src}
-              alt={image.alt}
-              sizes={image.responsiveImage.sizes}
+              src={fishData.mainImage.responsiveImage.src}
+              alt={fishData.mainImage.alt}
+              sizes={fishData.mainImage.responsiveImage.sizes}
               width={200}
               height={200}
             />
           )}
-          <div className="transition-all duration-[2s]  group-hover:bg-blue-600/50 absolute left-0 right-0 bottom-0 top-[100%] group-hover:top-[20%]"></div>
         </div>
       </Link>
-      <h3>{title}</h3>
-      <span className="block w-14 h-4 bg-blue-400 animate-pulse" />
+      <div className="transition-all duration-[2s] group-hover:bg-blue-400/25 -z-10 absolute left-0 right-0 bottom-0 top-[100%] group-hover:top-[0%]"></div>
+      <div className="flex flex-col items-center px-2">
+        <h3 className="uppercase font-bold">{fishData.commonName}</h3>
+        <span className="text-gray-500 text-xs capitalize">{fishData.scientificName}</span>
+      </div>
     </div>
   )
 }
 
+type FishInformation = Pick<Fish, "commonName" | "scientificName" | "id" | "mainImage">
+
 type QueryResponse = {
-  allFish: Array<Pick<Fish, "scientificName" | "commonName" | "id" | "mainImage">>
+  allFish: Array<FishInformation>
 }
 
 const FAMILY_PAGE_QUERY = gql`
