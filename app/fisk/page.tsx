@@ -34,10 +34,11 @@ export default async function FishLandingPage() {
   return (
     <div className="grid md:grid-cols-2 gap-3">
       {Object.entries(families).map(([familyName, familyInformation]) => {
+        const family = familyName.toLowerCase()
         return (
           <Link
-            key={familyName}
-            href={`/fisk/${familyName}`}
+            key={family}
+            href={`/fisk/${family}`}
             className="border rounded-3xl hover:rounded-none relative overflow-hidden transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center min-h-[200px] hover:bg-indigo-500/25"
           >
             {familyInformation.mainImage && (
@@ -49,7 +50,7 @@ export default async function FishLandingPage() {
                 style={{ objectFit: "cover" }}
               />
             )}
-            {familyName}
+            {family}
           </Link>
         )
       })}

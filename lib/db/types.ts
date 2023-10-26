@@ -1,7 +1,6 @@
 import { StructuredTextDocument } from "react-datocms"
 
-import { AdditionalImages } from "../cms/fragments"
-import { DatoImage } from "../cms/types"
+import { AdditionalImages, mainImage } from "../cms/fragments"
 
 export type Continent = "Afrika" | "Sydamerika" | "Nordamerika" | "Europa" | "Asien"
 export type Diet = "allätare" | "växtätare" | "köttätare"
@@ -23,7 +22,7 @@ export type Fish = {
     value: StructuredTextDocument
   }
   additionalImages: AdditionalImages
-  mainImage: DatoImage
+  mainImage: mainImage
   waterType: string
   temperature: {
     min: number

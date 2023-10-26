@@ -1,21 +1,39 @@
 import gql from "graphql-tag"
 
-import { DatoImage } from "./types"
+export type mainImage = {
+  alt: string
+  responsiveImage: {
+    src: string
+    aspectRatio: number
+    sizes: string
+    width: number
+    height: number
+  }
+}
 
 export const mainImageFragment = gql`
   fragment mainImageFragment on FishRecord {
     mainImage {
       alt
-      responsiveImage {
+      responsiveImage(imgixParams: { fit: crop, w: 375, h: 250 }) {
         aspectRatio
         sizes
         src
+        width
+        height
       }
     }
   }
 `
 
-export type AdditionalImages = Array<DatoImage>
+export type AdditionalImages = Array<{
+  alt: string
+  responsiveImage: {
+    src: string
+    aspectRatio: number
+    sizes: string
+  }
+}>
 
 export const additionalImagesFragment = gql`
   fragment additionalImagesFragment on FishRecord {

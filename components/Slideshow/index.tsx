@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { DatoImage } from "@/lib/cms/types"
 
@@ -9,6 +9,14 @@ export default function Slideshow({ images }: { images: Array<DatoImage> }) {
   const [shownImageIndex, setShownImageIndex] = useState(0)
   const [thumbnailClicked, setThumbnailClicked] = useState(false)
   const slideshowRef = useRef<HTMLUListElement>(null)
+
+  useEffect(() => {
+    if (!slideshowRef.current) return
+    slideshowRef.current.scrollTo({
+      left: shownImageIndex * slideshowRef.current.clientWidth,
+      behavior: "smooth",
+    })
+  }, [shownImageIndex])
 
   if (images.length === 0) return null
 
@@ -58,6 +66,14 @@ export default function Slideshow({ images }: { images: Array<DatoImage> }) {
           )
         })}
       </div>
+      <button
+        onClick={() => {
+          setShownImageIndex((prev) => (prev + 1) % images.length)
+          setThumbnailClicked(true)
+        }}
+      >
+        next
+      </button>
     </div>
   )
 }
