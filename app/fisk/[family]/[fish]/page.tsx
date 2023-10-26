@@ -40,8 +40,12 @@ export default async function FishPage({ searchParams: { id } }: Props) {
           {fishInformation.scientificName}
         </h2>
       </div>
-      {fishInformation.additionalImages && <Slideshow images={fishInformation.additionalImages} />}
-      <Aquarium fishInfo={fishInformation} />
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {fishInformation.additionalImages && (
+          <Slideshow images={fishInformation.additionalImages} />
+        )}
+        <Aquarium fishInfo={fishInformation} />
+      </div>
     </div>
   )
 }

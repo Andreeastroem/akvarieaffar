@@ -13,9 +13,9 @@ export default function Slideshow({ images }: { images: Array<DatoImage> }) {
   if (images.length === 0) return null
 
   return (
-    <>
+    <div className="w-fit">
       <div
-        className="relative snap-x snap-mandatory flex overflow-scroll"
+        className="relative snap-x snap-mandatory max-w-[400px] flex overflow-scroll"
         onScroll={(e) => {
           if (thumbnailClicked) return
           setShownImageIndex(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))
@@ -24,7 +24,7 @@ export default function Slideshow({ images }: { images: Array<DatoImage> }) {
       >
         {images.map((image, idx) => {
           return (
-            <div className="relative snap-start min-w-full aspect-video">
+            <div className="relative snap-start min-w-[400px] w-full aspect-[1/1]">
               <Image
                 key={idx}
                 src={image.responsiveImage.src}
@@ -58,6 +58,6 @@ export default function Slideshow({ images }: { images: Array<DatoImage> }) {
           )
         })}
       </div>
-    </>
+    </div>
   )
 }
