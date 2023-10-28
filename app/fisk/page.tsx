@@ -3,9 +3,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import { mainImageFragment } from "@/lib/cms/fragments"
+import { mainImage, mainImageFragment } from "@/lib/cms/fragments"
 import CMSFetch from "@/lib/cms/request"
-import { Fish } from "@/lib/db/types"
 
 export default async function FishLandingPage() {
   /**
@@ -18,18 +17,17 @@ export default async function FishLandingPage() {
     return notFound()
   }
 
-  const families = res.allFish.reduce<Record<string, Pick<Fish, "family" | "mainImage">>>(
-    (acc, fish) => {
-      if (!acc[fish.family]) {
-        return {
-          ...acc,
-          [fish.family]: fish,
-        }
+  const families = res.allFish.reduce<
+    Record<string, { family: { id: string; name: string }; mainImage: mainImage }>
+  >((acc, fish) => {
+    if (!acc[fish.family.name]) {
+      return {
+        ...acc,
+        [fish.family.name]: fish,
       }
-      return acc
-    },
-    {}
-  )
+    }
+    return acc
+  }, {})
 
   return (
     <div className="grid md:grid-cols-2 gap-3">
@@ -39,7 +37,7 @@ export default async function FishLandingPage() {
           <Link
             key={family}
             href={`/fisk/${family}`}
-            className="border rounded-3xl hover:rounded-none relative overflow-hidden transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center min-h-[200px] hover:bg-indigo-500/25"
+            className="border group rounded-3xl hover:rounded-none relative overflow-hidden transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center min-h-[200px] hover:bg-indigo-500/25"
           >
             {familyInformation.mainImage && (
               <Image
@@ -47,6 +45,7 @@ export default async function FishLandingPage() {
                 src={familyInformation.mainImage.responsiveImage.src}
                 sizes={familyInformation.mainImage.responsiveImage.sizes}
                 fill
+                className="transition-transform group-hover:scale-110 duration-1000"
                 style={{ objectFit: "cover" }}
               />
             )}
@@ -59,13 +58,22 @@ export default async function FishLandingPage() {
 }
 
 type QueryResponse = {
-  allFish: Array<Pick<Fish, "family" | "mainImage">>
+  allFish: Array<{
+    family: {
+      name: string
+      id: string
+    }
+    mainImage: mainImage
+  }>
 }
 const FISH_QUERY = gql`
   ${mainImageFragment}
   query {
     allFish {
-      family
+      family {
+        id
+        name
+      }
       ...mainImageFragment
     }
   }

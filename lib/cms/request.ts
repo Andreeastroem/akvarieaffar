@@ -6,12 +6,15 @@ type Props = {
 }
 
 export default async function CMSFetch<T>({ query, variables }: Props): Promise<T | null> {
+  const env = process.env.DATOCMS_ENVIRONMENT
+  console.log("environment", env)
   const res = await fetch("https://graphql.datocms.com/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-Exclude-Invalid": "true",
       Authorization: process.env.DATOCMS_KEY ?? "",
+      "X-Environment": process.env.DATOCMS_ENVIRONMENT ?? "main",
     },
     body: JSON.stringify({
       query: print(query),

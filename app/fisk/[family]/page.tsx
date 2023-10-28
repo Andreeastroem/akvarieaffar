@@ -17,14 +17,14 @@ type Props = {
 export default async function FishFamilyLandingPage({ params: { family } }: Props) {
   const res = await CMSFetch<QueryResponse>({
     query: FAMILY_PAGE_QUERY,
-    variables: { family },
+    variables: { slug: family },
   })
 
   if (!res) {
     return notFound()
   }
 
-  const fishInFamily = res.allFish
+  const fishInFamily = res.family._allReferencingFish
 
   return (
     <div>
@@ -70,17 +70,19 @@ function FishLink({ fishData, family }: { fishData: FishInformation; family: str
 type FishInformation = Pick<Fish, "commonName" | "scientificName" | "id" | "mainImage">
 
 type QueryResponse = {
-  allFish: Array<FishInformation>
+  family: { _allReferencingFish: Array<FishInformation> }
 }
 
 const FAMILY_PAGE_QUERY = gql`
   ${mainImageFragment}
-  query familyPage($family: String!) {
-    allFish(filter: { family: { any: { family: { name: { eq: $family } } } } }) {
-      commonName
-      scientificName
-      id
-      ...mainImageFragment
+  query familyPage($slug: String!) {
+    family(filter: { slug: { eq: $slug } }) {
+      _allReferencingFish {
+        commonName
+        scientificName
+        id
+        ...mainImageFragment
+      }
     }
   }
 `
