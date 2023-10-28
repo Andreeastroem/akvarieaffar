@@ -1,4 +1,4 @@
-import { UserButton } from "@clerk/nextjs/app-beta"
+import { UserButton } from "@clerk/nextjs"
 import gql from "graphql-tag"
 import Link from "next/link"
 import { notFound } from "next/navigation"

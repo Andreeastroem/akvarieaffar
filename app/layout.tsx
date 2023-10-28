@@ -1,6 +1,6 @@
 import "./globals.css"
 
-import { ClerkProvider } from "@clerk/nextjs/app-beta"
+import { ClerkProvider } from "@clerk/nextjs"
 import { useMemo } from "react"
 
 import Header from "./Header"
