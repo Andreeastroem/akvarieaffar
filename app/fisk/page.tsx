@@ -7,10 +7,6 @@ import { mainImage, mainImageFragment } from "@/lib/cms/fragments"
 import CMSFetch from "@/lib/cms/request"
 
 export default async function FishLandingPage() {
-  /**
-   * Fetch all categories from database
-   * Mocked for now
-   *  */
   const res = await CMSFetch<QueryResponse>({ query: FISH_QUERY })
 
   if (!res) {

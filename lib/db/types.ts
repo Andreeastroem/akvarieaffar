@@ -16,7 +16,9 @@ export type Fish = {
   difficulty: number
   diet: Diet
   commonName: string
-  family: string
+  family: {
+    name: string
+  }
   id: number
   description: {
     value: StructuredTextDocument
@@ -24,15 +26,15 @@ export type Fish = {
   additionalImages: AdditionalImages
   mainImage: mainImage
   waterType: string
-  temperature: {
+  temperature: Array<{
     min: number
     max: number
-  }
+  }>
   socialNeeds: string
-  ph: {
+  ph: Array<{
     min: number
     max: number
-  }
+  }>
   aquariumMinSize: number
   aquariumMinVolume: number
   depth: DepthLevel

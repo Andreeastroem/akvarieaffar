@@ -55,9 +55,9 @@ function Aquarium({ fishInfo }: { fishInfo: Fish }) {
     <div className="w-full flex flex-col items-center">
       <div className="w-full md:h-96 h-60 border flex justify-between">
         <div className="h-full flex flex-col-reverse justify-between items-center w-[10%] min-w-[32px] p-1 bg-gradient-to-b from-transparent to-red-400">
-          <span>{fishInfo.temperature.min}</span>
+          <span>{fishInfo.temperature[0].min}</span>
           <span>˚C</span>
-          <span>{fishInfo.temperature.max}</span>
+          <span>{fishInfo.temperature[0].max}</span>
         </div>
         <div id="aquarium-content-area" className="w-full flex items-center flex-col">
           <span>{fishInfo.aquariumMinVolume} liter</span>
@@ -67,9 +67,9 @@ function Aquarium({ fishInfo }: { fishInfo: Fish }) {
           <span>{fishInfo.waterType}</span>
         </div>
         <div className="h-full flex flex-col-reverse justify-between items-center w-[10%] min-w-[32px] p-1 bg-gradient-to-b from-blue-300 to-green-400">
-          <span>{fishInfo.ph.min}</span>
+          <span>{fishInfo.ph[0].min}</span>
           <span>pH</span>
-          <span>{fishInfo.ph.max}</span>
+          <span>{fishInfo.ph[0].max}</span>
         </div>
       </div>
       <span>
@@ -89,7 +89,9 @@ const FISH_PAGE_QUERY = gql`
       commonName
       scientificName
       price
-      family
+      family {
+        name
+      }
       difficulty
       continentOfOrigin
       countryOfOrigin
