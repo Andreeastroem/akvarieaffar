@@ -26,14 +26,14 @@ export default async function FishLandingPage() {
   }, {})
 
   return (
-    <div className="grid md:grid-cols-2 gap-3">
+    <div className="grid sm:grid-cols-2 gap-3 mx-auto sm:w-4/5">
       {Object.entries(families).map(([familyName, familyInformation]) => {
         const family = familyName.toLowerCase()
         return (
           <Link
             key={family}
             href={`/fisk/${family}`}
-            className="border group rounded-3xl hover:rounded-none relative overflow-hidden transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center min-h-[200px] hover:bg-indigo-500/25"
+            className="border aspect-[3/1] group rounded-3xl hover:rounded-none relative overflow-hidden transition-all duration-1000 border-indigo-700 border-solid flex justify-center items-center hover:bg-indigo-500/25"
           >
             {familyInformation.mainImage && (
               <Image

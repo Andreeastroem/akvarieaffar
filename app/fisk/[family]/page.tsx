@@ -41,7 +41,7 @@ export default async function FishFamilyLandingPage({ params: { family } }: Prop
 function FishLink({ fishData, family }: { fishData: FishInformation; family: string }) {
   const slug = slugify(fishData.scientificName)
   return (
-    <div className="border relative max-w-[375px] hover:p-0 group overflow-hidden duration-1000 hover:rounded-3xl transition-all border-indigo-700 border-solid p-3">
+    <div className="border relative hover:p-0 group overflow-hidden duration-1000 hover:rounded-3xl transition-all border-indigo-700 border-solid p-3">
       <Link
         href={`/fisk/${family}/${slug}?id=${fishData.id}`}
         className="w-full flex justify-center"

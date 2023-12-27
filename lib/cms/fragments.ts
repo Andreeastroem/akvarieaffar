@@ -15,7 +15,7 @@ export const mainImageFragment = gql`
   fragment mainImageFragment on FishRecord {
     mainImage {
       alt
-      responsiveImage(imgixParams: { fit: crop, w: 375, h: 250 }) {
+      responsiveImage(imgixParams: { fit: crop, ar: "3:1" }) {
         aspectRatio
         sizes
         src

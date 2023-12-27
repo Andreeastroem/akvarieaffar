@@ -13,6 +13,11 @@ type ArticlePreview = {
     alt: string
     title: string
     url: string
+    responsiveImage: {
+      src: string
+      alt: string
+      sizes: string
+    }
   }
 }
 
@@ -21,6 +26,9 @@ export default async function ArticlePage() {
     allArticles: Array<ArticlePreview>
   }>({
     query: ARTICLES_QUERY,
+    variables: {
+      sizes: "(max-width: 375px) 340px, (max-width: 600px) 100vw, 600px",
+    },
   })
   if (!articlePages) {
     return notFound()
@@ -36,12 +44,12 @@ export default async function ArticlePage() {
               href={`/artiklar/${article.slug}`}
             >
               <Image
-                alt={article.coverImage.alt}
-                src={article.coverImage.url}
+                alt={article.coverImage.responsiveImage.alt}
+                src={article.coverImage.responsiveImage.src}
                 title={article.coverImage.title}
                 fill
                 className="-z-10"
-                sizes="(max-width: 600px) 100vw, 600px"
+                sizes={article.coverImage.responsiveImage.sizes}
                 style={{
                   objectFit: "cover",
                 }}
@@ -59,7 +67,7 @@ export default async function ArticlePage() {
 }
 
 const ARTICLES_QUERY = gql`
-  query {
+  query ($sizes: String!) {
     allArticles {
       title
       slug
@@ -68,6 +76,11 @@ const ARTICLES_QUERY = gql`
         alt
         title
         url
+        responsiveImage(imgixParams: { ar: "3:1" }, sizes: $sizes) {
+          src
+          sizes
+          alt
+        }
       }
     }
   }
