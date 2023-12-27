@@ -44,13 +44,34 @@ export default async function FishPage({ searchParams: { id } }: Props) {
         {fishInformation.additionalImages && (
           <Slideshow images={fishInformation.additionalImages} />
         )}
-        <Aquarium fishInfo={fishInformation} />
+        <Aquarium />
       </div>
     </div>
   )
 }
 
-function Aquarium({ fishInfo }: { fishInfo: Fish }) {
+function Aquarium() {
+  return (
+    <div className="w-[300px] aspect-video group">
+      <div id="aquarium-front" className="w-[280px] aspect-video relative flex border border-black">
+        <div
+          id="aquarium-back"
+          className="absolute top-0 bottom-0 right-0 left-0 group-hover:border border-black group-hover:translate-x-3 group-hover:-translate-y-3 transition-transform duration-1000"
+        ></div>
+        <div
+          id="aquarium-top"
+          className="absolute left-0 top-0 right-0 group-hover:h-3 group-hover:-translate-y-3 border-l border-r group-hover:border-black transition-all origin-bottom-left group-hover:-skew-x-[45deg] duration-1000"
+        ></div>
+        <div
+          id="aquarium-bottom"
+          className="absolute left-0 bottom-0 right-0 h-3 group-hover:border-l group-hover:border-r group-hover:border-black transition-transform origin-bottom-left group-hover:-skew-x-[45deg] duration-1000"
+        ></div>
+      </div>
+    </div>
+  )
+}
+
+function Aquarium2({ fishInfo }: { fishInfo: Fish }) {
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-full md:h-96 h-60 border flex justify-between">
