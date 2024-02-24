@@ -1,5 +1,6 @@
 import gql from "graphql-tag"
 import { notFound } from "next/navigation"
+import { StructuredText } from "react-datocms"
 
 import Slideshow from "@/components/Slideshow"
 import { additionalImagesFragment, mainImageFragment } from "@/lib/cms/fragments"
@@ -36,68 +37,58 @@ export default async function FishPage({ searchParams: { id } }: Props) {
     <div className="grid gap-6">
       <div>
         <h1>{fishInformation.commonName}</h1>
-        <h2 className="font-extralight text-xs capitalize text-gray-500">
-          {fishInformation.scientificName}
-        </h2>
+        <div className="flex items-center gap-4">
+          <h2 className="font-extralight text-xs capitalize text-gray-500">
+            {fishInformation.scientificName}
+          </h2>
+          <span
+            className={`font-extralight text-xs ${fishInformation.inStock ? "bg-green-300" : "bg-red-300"} p-2 rounded-full`}
+          >
+            {fishInformation.inStock ? "I lager" : "Slut"}
+          </span>
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="">
         {fishInformation.additionalImages && (
           <Slideshow images={fishInformation.additionalImages} />
         )}
-        <Aquarium />
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {!!fishInformation.price && <InfoCard title="Pris">{fishInformation.price} kr</InfoCard>}
+          <InfoCard title="Familj">{fishInformation.family.name}</InfoCard>
+          {!!fishInformation.difficulty && (
+            <InfoCard title="Svårighetsgrad">{fishInformation.difficulty}</InfoCard>
+          )}
+          {!!fishInformation.continentOfOrigin && !!fishInformation.countryOfOrigin && (
+            <InfoCard title="Ursprung">
+              {fishInformation.continentOfOrigin}, {fishInformation.countryOfOrigin}
+            </InfoCard>
+          )}
+          <InfoCard title="Vattentyp">{fishInformation.waterType}</InfoCard>
+          <InfoCard title="Temperatur">
+            {fishInformation.temperature[0].min} - {fishInformation.temperature[0].max} °C
+          </InfoCard>
+          <InfoCard title="Sociala behov">{fishInformation.socialNeeds}</InfoCard>
+          <InfoCard title="pH">
+            {fishInformation.ph[0].min} - {fishInformation.ph[0].max}
+          </InfoCard>
+          <InfoCard title="Längd">{fishInformation.length} cm</InfoCard>
+          <InfoCard title="Djup">{fishInformation.depth}</InfoCard>
+          <InfoCard title="Diet">{fishInformation.diet}</InfoCard>
+          <InfoCard title="Könsskillnader">{fishInformation.genderDifferences}</InfoCard>
+          <InfoCard title="I lager">{fishInformation.inStock ? "Ja" : "Nej"}</InfoCard>
+        </div>
+        <StructuredText data={fishInformation.description} />
+        <h3>Beskrivning</h3>
       </div>
     </div>
   )
 }
 
-function Aquarium() {
+function InfoCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="w-[300px] aspect-video group">
-      <div id="aquarium-front" className="w-[280px] aspect-video relative flex border border-black">
-        <div
-          id="aquarium-back"
-          className="absolute top-0 bottom-0 right-0 left-0 group-hover:border border-black group-hover:translate-x-3 group-hover:-translate-y-3 transition-transform duration-1000"
-        ></div>
-        <div
-          id="aquarium-top"
-          className="absolute left-0 top-0 right-0 group-hover:h-3 group-hover:-translate-y-3 border-l border-r group-hover:border-black transition-all origin-bottom-left group-hover:-skew-x-[45deg] duration-1000"
-        ></div>
-        <div
-          id="aquarium-bottom"
-          className="absolute left-0 bottom-0 right-0 h-3 group-hover:border-l group-hover:border-r group-hover:border-black transition-transform origin-bottom-left group-hover:-skew-x-[45deg] duration-1000"
-        ></div>
-      </div>
-    </div>
-  )
-}
-
-function Aquarium2({ fishInfo }: { fishInfo: Fish }) {
-  return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full md:h-96 h-60 border flex justify-between">
-        <div className="h-full flex flex-col-reverse justify-between items-center w-[10%] min-w-[32px] p-1 bg-gradient-to-b from-transparent to-red-400">
-          <span>{fishInfo.temperature[0].min}</span>
-          <span>˚C</span>
-          <span>{fishInfo.temperature[0].max}</span>
-        </div>
-        <div id="aquarium-content-area" className="w-full flex items-center flex-col">
-          <span>{fishInfo.aquariumMinVolume} liter</span>
-          <span>{fishInfo.depth}</span>
-          <span>{fishInfo.length} cm lång</span>
-          <span>{fishInfo.socialNeeds}</span>
-          <span>{fishInfo.waterType}</span>
-        </div>
-        <div className="h-full flex flex-col-reverse justify-between items-center w-[10%] min-w-[32px] p-1 bg-gradient-to-b from-blue-300 to-green-400">
-          <span>{fishInfo.ph[0].min}</span>
-          <span>pH</span>
-          <span>{fishInfo.ph[0].max}</span>
-        </div>
-      </div>
-      <span>
-        {"<----------"}
-        {fishInfo.aquariumMinSize} cm
-        {"---------->"}
-      </span>
+    <div className="border border-blue-50 bg-blue-100 p-2 rounded-lg">
+      <h3>{title}</h3>
+      <p>{children}</p>
     </div>
   )
 }
@@ -141,6 +132,7 @@ const FISH_PAGE_QUERY = gql`
       depth
       diet
       genderDifferences
+      inStock
     }
   }
 `

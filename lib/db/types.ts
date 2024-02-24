@@ -9,6 +9,7 @@ export type DepthLevel = "botten" | "mellan" | "yta"
 export type socialNeeds = "stim" | "par" | "ensam"
 
 export type Fish = {
+  inStock: boolean
   scientificName: string
   continentOfOrigin: Continent
   countryOfOrigin: string
@@ -23,8 +24,8 @@ export type Fish = {
   description: {
     value: StructuredTextDocument
   }
-  additionalImages: AdditionalImages
-  mainImage: mainImage
+  additionalImages?: AdditionalImages
+  mainImage: mainImage | null
   waterType: string
   temperature: Array<{
     min: number
@@ -38,5 +39,6 @@ export type Fish = {
   aquariumMinSize: number
   aquariumMinVolume: number
   depth: DepthLevel
+  price: number
   genderDifferences: string
 }
