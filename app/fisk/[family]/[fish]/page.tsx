@@ -1,3 +1,4 @@
+import { isEmptyDocument } from "datocms-structured-text-utils"
 import gql from "graphql-tag"
 import { notFound } from "next/navigation"
 import { StructuredText } from "react-datocms"
@@ -63,32 +64,50 @@ export default async function FishPage({ searchParams: { id } }: Props) {
               {fishInformation.continentOfOrigin}, {fishInformation.countryOfOrigin}
             </InfoCard>
           )}
-          <InfoCard title="Vattentyp">{fishInformation.waterType}</InfoCard>
-          <InfoCard title="Temperatur">
-            {fishInformation.temperature[0].min} - {fishInformation.temperature[0].max} °C
-          </InfoCard>
-          <InfoCard title="Sociala behov">{fishInformation.socialNeeds}</InfoCard>
-          <InfoCard title="pH">
-            {fishInformation.ph[0].min} - {fishInformation.ph[0].max}
-          </InfoCard>
-          <InfoCard title="Längd">{fishInformation.length} cm</InfoCard>
-          <InfoCard title="Djup">{fishInformation.depth}</InfoCard>
-          <InfoCard title="Diet">{fishInformation.diet}</InfoCard>
-          <InfoCard title="Könsskillnader">{fishInformation.genderDifferences}</InfoCard>
-          <InfoCard title="I lager">{fishInformation.inStock ? "Ja" : "Nej"}</InfoCard>
+          {!!fishInformation.waterType && (
+            <InfoCard title="Vattentyp">{fishInformation.waterType}</InfoCard>
+          )}
+          {!!fishInformation.temperature?.[0].min && !!fishInformation.temperature?.[0].max && (
+            <InfoCard title="Temperatur">
+              {fishInformation.temperature[0].min} - {fishInformation.temperature[0].max} °C
+            </InfoCard>
+          )}
+          {!!fishInformation.socialNeeds && (
+            <InfoCard title="Sociala behov">{fishInformation.socialNeeds}</InfoCard>
+          )}
+          {!!fishInformation.ph?.[0].min && !!fishInformation.ph?.[0].max && (
+            <InfoCard title="pH">
+              {fishInformation.ph[0].min} - {fishInformation.ph[0].max}
+            </InfoCard>
+          )}
+          {!!fishInformation.length && (
+            <InfoCard title="Längd">{fishInformation.length} cm</InfoCard>
+          )}
+          {!!fishInformation.depth && <InfoCard title="Djup">{fishInformation.depth}</InfoCard>}
+          {!!fishInformation.diet && <InfoCard title="Diet">{fishInformation.diet}</InfoCard>}
+          {!!fishInformation.genderDifferences && (
+            <InfoCard title="Könsskillnader">{fishInformation.genderDifferences}</InfoCard>
+          )}
         </div>
-        <StructuredText data={fishInformation.description} />
-        <h3>Beskrivning</h3>
+        {!isEmptyDocument(fishInformation.description) && (
+          <Description>
+            <StructuredText data={fishInformation.description} />
+          </Description>
+        )}
       </div>
     </div>
   )
 }
 
+function Description({ children }: { children: React.ReactNode }) {
+  return <div className="max-w-[300px] mx-auto py-3">{children}</div>
+}
+
 function InfoCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="border border-blue-50 bg-blue-100 p-2 rounded-lg">
-      <h3>{title}</h3>
-      <p>{children}</p>
+      <h3 className="text-sm font-extralight">{title}</h3>
+      {children}
     </div>
   )
 }
