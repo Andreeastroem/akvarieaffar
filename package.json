@@ -18,7 +18,7 @@
     "autoprefixer": "10.4.14",
     "datocms-structured-text-utils": "^3.0.0",
     "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0",
+    "eslint-config-next": "15.0.0",
     "framer-motion": "^10.11.2",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
