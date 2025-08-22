@@ -11,7 +11,7 @@
     "build-icons": "svgr --config-file .svgr.json rawIcons"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.16.4",
+    "@clerk/nextjs": "^5.5.2",
     "@types/node": "18.15.11",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.0.11",
